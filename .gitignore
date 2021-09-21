@@ -1,1 +1,8 @@
+# Compiled Object files
+*.o
+
+# Executables
+prime-number-generator
+
+# VS Code
 /.vscode
