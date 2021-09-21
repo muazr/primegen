@@ -18,14 +18,14 @@ void PrimeNumberGenerator::simpleSieve()
     {
         if (isPrime[p])
         {
+            std::cout << p << " ";
+
             for (uint_fast64_t multiple = p * p; multiple <= segmentSize; multiple += p)
             {
                 isPrime[multiple] = false;
             }
         }
     }
-
-    print(isPrime, 0);
 }
 
 void PrimeNumberGenerator::segmentedSieve()
