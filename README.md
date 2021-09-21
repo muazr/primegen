@@ -20,5 +20,6 @@ make
 
 To run, simply execute the compiled binary:
 ```
-./prime-number-generator
+./prime-number-generator N
 ```
+where N is the upper limit integer of the prime numbers you wish to generate.
