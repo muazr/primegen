@@ -1,48 +1,73 @@
 #include "primenumbergenerator.h"
 #include <iostream>
 #include <string>
+#include <unistd.h>
+
+enum class Mode
+{
+	GeneratePrimes,
+	PrimalityTest,
+	NextPrime
+};
 
 int main(int argc, char *argv[])
 {
-	uint_fast64_t upperLimit = 0;
 	uint_fast64_t number = 0;
 
-	if (argc >= 2)
-	{
-		std::string arg(argv[1]);
+	Mode mode = Mode::GeneratePrimes;
+	int c = -1;
 
-		if (arg.find("-n") != std::string::npos)
+	while ((c = getopt(argc, argv, "nth")) != -1)
+	{
+		switch (c)
 		{
-			std::cout << "Enter number: ";
-			std::cin >> number;
-			std::cout << "Next prime number: " << PrimeNumberGenerator::getNextPrimeNumber(number) << std::endl;
-			return 0;
-		}
-		else if (arg.find("-t") != std::string::npos)
-		{
-			std::cout << "Enter number to test: ";
-			std::cin >> number;
-			std::cout << number << " is " << (PrimeNumberGenerator::isPrimeNumber(number) ? "" : "NOT ") << "a prime number" << std::endl;
-			return 0;
-		}
-		else
-		{
-			upperLimit = std::stoull(arg, nullptr);
+			case 'n':
+				mode = Mode::NextPrime;
+				break;
+			case 't':
+				mode = Mode::PrimalityTest;
+				break;
+			case '?':
+				if (isprint (optopt))
+					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+				else
+					fprintf (stderr,
+							"Unknown option character `\\x%x'.\n",
+							optopt);
+			case 'h':
+			default :
+				printf("Help/Usage Example\n");
+				return 0;
 		}
 	}
-	else
-	{
-		std::cout << "Enter upper limit: ";
-		std::cin >> upperLimit;
-		std::cout << std::endl;
-	}
 
-	std::cout << "ココア：じゃあ、どっちがたくさん素数言えるか勝負だよ！\n";
-	std::cout << "シャロ：なんで素数よ！？\n";
-    std::cout << "ココア：";
-	PrimeNumberGenerator cocoa(upperLimit);
-	cocoa.segmentedSieve();
-	std::cout << "\nシャロ：だからなんで素数よ！？\n";
+	if (optind >= argc)
+	{
+        fprintf(stderr, "Expected argument after options\n");
+        return 0;
+    }
+
+	number = std::stoull(argv[optind], nullptr);
+	
+	PrimeNumberGenerator cocoa(number);
+
+	switch (mode)
+	{
+		case Mode::PrimalityTest:
+			std::cout << number << " is " << (cocoa.isPrime(number) ? "" : "NOT ") << "a prime number" << std::endl;
+			break;
+		case Mode::NextPrime:
+			std::cout << "Next prime number: " << cocoa.getNextPrime(number) << std::endl;
+			break;
+		case Mode::GeneratePrimes:
+		default:
+			std::cout << "ココア：じゃあ、どっちがたくさん素数言えるか勝負だよ！\n";
+			std::cout << "シャロ：なんで素数よ！？\n";
+			std::cout << "ココア：";
+			cocoa.segmentedSieve();
+			std::cout << "\nシャロ：だからなんで素数よ！？\n";
+			break;
+	}
 
 	return 0;
 }
