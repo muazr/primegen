@@ -12,8 +12,8 @@ enum class Mode
 
 void printHelp()
 {
-	std::cout << 
-R"(Usage:
+	std::cout <<
+		R"(Usage:
  prime-number-generator [-n|-t] NUM
  prime-number-generator -h
 
@@ -39,50 +39,58 @@ int main(int argc, char *argv[])
 	{
 		switch (c)
 		{
-			case 'n':
-				mode = Mode::NextPrime;
-				break;
-			case 't':
-				mode = Mode::PrimalityTest;
-				break;
-			case '?':
-				if (isprint (optopt))
-					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
-				else
-					fprintf (stderr,
-							"Unknown option character '\\x%x'.\n",
-							optopt);
-			case 'h':
-			default :
+		case 'n':
+			mode = Mode::NextPrime;
+			break;
+		case 't':
+			mode = Mode::PrimalityTest;
+			break;
+		case '?':
+			if (isprint(optopt))
+			{
+				fprintf(stderr, "Unknown option '-%c'.\n", optopt);
 				printHelp();
-				return 0;
+				return EXIT_FAILURE;
+			}
+			else
+			{
+				fprintf(stderr,
+						"Unknown option character '\\x%x'.\n",
+						optopt);
+				return EXIT_FAILURE;
+			}
+			break;
+		case 'h':
+		default:
+			printHelp();
+			return EXIT_SUCCESS;
 		}
 	}
 
 	if (optind >= argc)
 	{
-        fprintf(stderr, "Expected argument after options\n");
+		fprintf(stderr, "Expected argument after options\n");
 		printHelp();
-        return 0;
-    }
+		return EXIT_FAILURE;
+	}
 
 	number = std::stoull(argv[optind], nullptr);
-	
+
 	PrimeNumberGenerator cocoa(number);
 
 	switch (mode)
 	{
-		case Mode::PrimalityTest:
-			std::cout << number << " is " << (cocoa.isPrime(number) ? "" : "NOT ") << "a prime number" << std::endl;
-			break;
-		case Mode::NextPrime:
-			std::cout << "Next prime number: " << cocoa.getNextPrime(number) << std::endl;
-			break;
-		case Mode::GeneratePrimes:
-		default:
-			cocoa.segmentedSieve();
-			break;
+	case Mode::PrimalityTest:
+		std::cout << number << " is " << (cocoa.isPrime(number) ? "" : "NOT ") << "a prime number" << std::endl;
+		break;
+	case Mode::NextPrime:
+		std::cout << "Next prime number: " << cocoa.getNextPrime(number) << std::endl;
+		break;
+	case Mode::GeneratePrimes:
+	default:
+		cocoa.segmentedSieve();
+		break;
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
