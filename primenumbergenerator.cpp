@@ -63,6 +63,7 @@ void PrimeNumberGenerator::print(const std::vector<bool> &isPrime, uint_fast64_t
         if (isPrime[i])
             std::cout << i + offset << " ";
     }
+    std::cout << std::endl;
 }
 
 bool PrimeNumberGenerator::isPrime(uint_fast64_t number)

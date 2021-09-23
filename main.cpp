@@ -10,6 +10,24 @@ enum class Mode
 	NextPrime
 };
 
+void printHelp()
+{
+	std::cout << 
+R"(Usage:
+ prime-number-generator [-n|-t] NUM
+ prime-number-generator -h
+
+Generate prime numbers up to NUM.
+Find the next prime number after NUM if -n is specified.
+Perform primality test on NUM if -t is specified.
+
+Options:
+ -t		test whether NUM is a prime number
+ -n		find the next prime number after NUM
+ -h		display this help
+)";
+}
+
 int main(int argc, char *argv[])
 {
 	uint_fast64_t number = 0;
@@ -29,14 +47,14 @@ int main(int argc, char *argv[])
 				break;
 			case '?':
 				if (isprint (optopt))
-					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr,
-							"Unknown option character `\\x%x'.\n",
+							"Unknown option character '\\x%x'.\n",
 							optopt);
 			case 'h':
 			default :
-				printf("Help/Usage Example\n");
+				printHelp();
 				return 0;
 		}
 	}
@@ -44,6 +62,7 @@ int main(int argc, char *argv[])
 	if (optind >= argc)
 	{
         fprintf(stderr, "Expected argument after options\n");
+		printHelp();
         return 0;
     }
 
@@ -61,11 +80,7 @@ int main(int argc, char *argv[])
 			break;
 		case Mode::GeneratePrimes:
 		default:
-			std::cout << "ココア：じゃあ、どっちがたくさん素数言えるか勝負だよ！\n";
-			std::cout << "シャロ：なんで素数よ！？\n";
-			std::cout << "ココア：";
 			cocoa.segmentedSieve();
-			std::cout << "\nシャロ：だからなんで素数よ！？\n";
 			break;
 	}
 
