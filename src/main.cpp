@@ -19,10 +19,10 @@ void printHelp()
 
 Generate prime numbers up to NUM.
 Find the next prime number after NUM if -n is specified.
-Perform primality test on NUM if -t is specified.
+Test whether NUM is a prime number if -t is specified.
 
 Options:
- -t		test whether NUM is a prime number
+ -t		perform primality test on NUM
  -n		find the next prime number after NUM
  -h		display this help
 )";
