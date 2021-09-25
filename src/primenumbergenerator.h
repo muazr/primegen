@@ -9,7 +9,7 @@ private:
     uint_fast64_t segmentSize = 0;
     void simpleSieve();
     void print(const std::vector<bool> &isPrime, uint_fast64_t offset);
-    uint_fast64_t getNextMultiple(uint_fast64_t number, uint_fast64_t factor);
+    static uint_fast64_t getNextMultiple(uint_fast64_t number, uint_fast64_t factor);
 
 public:
     PrimeNumberGenerator(uint_fast64_t limit);
