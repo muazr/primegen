@@ -12,13 +12,13 @@ TEST_PATH := tests
 TEST_OBJ_PATH := $(OBJ_PATH)/tests
 
 # compile macros
-TARGET_NAME := prime-number-generator
+TARGET_NAME := primegen
 ifeq ($(OS),Windows_NT)
 	TARGET_NAME := $(addsuffix .exe,$(TARGET_NAME))
 endif
 TARGET := $(TARGET_NAME)
 TARGET_DEBUG := $(DBG_PATH)/$(TARGET_NAME)
-TEST_TARGET := prime-number-generator-test
+TEST_TARGET := primegen-test
 
 # src files & obj files
 SRC := $(foreach x, $(SRC_PATH), $(wildcard $(addprefix $(x)/*,.cpp)))

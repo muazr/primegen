@@ -109,8 +109,8 @@ int main(int argc, char *argv[])
 	case Mode::GeneratePrimes:
 	default:
 		std::cout << "Prime numbers:\n";
-		PrimeNumberGenerator cocoa(number);
-		cocoa.segmentedSieve();
+		PrimeNumberGenerator primegen(number);
+		primegen.segmentedSieve();
 		std::cout << std::endl;
 		break;
 	}

@@ -2,7 +2,8 @@
 *.o
 
 # Executables
-prime-number-generator
+primegen
+primegen-test
 
 # VS Code
 /.vscode
