@@ -3,7 +3,8 @@
 #include <iostream>
 #include <cmath>
 
-PrimeNumberGenerator::PrimeNumberGenerator(uint_fast64_t limit, std::ostream &output) : upperLimit(limit), out(output)
+PrimeNumberGenerator::PrimeNumberGenerator(uint_fast64_t limit, std::ostream &output)
+        : upperLimit(limit), out(output)
 {
     segmentSize = sqrt(upperLimit);
 }

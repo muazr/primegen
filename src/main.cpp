@@ -83,8 +83,7 @@ int main(int argc, char *argv[])
 	catch (const std::out_of_range &err)
 	{
 		std::cerr << "Argument value is out of range. Expected an integer between "
-				  << std::numeric_limits<decltype(number)>::min()
-				  << " and "
+				  << std::numeric_limits<decltype(number)>::min() << " and "
 				  << std::numeric_limits<decltype(number)>::max() << "\n";
 		printHelp();
 		return EXIT_FAILURE;
@@ -96,19 +95,21 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	PrimeNumberGenerator cocoa(number);
-
 	switch (mode)
 	{
 	case Mode::PrimalityTest:
-		std::cout << number << " is " << (cocoa.isPrime(number) ? "" : "NOT ") << "a prime number" << std::endl;
+		std::cout << number << " is "
+				  << (PrimeNumberGenerator::isPrime(number) ? "" : "NOT ")
+				  << "a prime number" << std::endl;
 		break;
 	case Mode::NextPrime:
-		std::cout << "Next prime number: " << cocoa.getNextPrime(number) << std::endl;
+		std::cout << "Next prime number: " 
+				  << PrimeNumberGenerator::getNextPrime(number) << std::endl;
 		break;
 	case Mode::GeneratePrimes:
 	default:
 		std::cout << "Prime numbers:\n";
+		PrimeNumberGenerator cocoa(number);
 		cocoa.segmentedSieve();
 		std::cout << std::endl;
 		break;
