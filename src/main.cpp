@@ -1,6 +1,8 @@
 #include "primenumbergenerator.h"
 #include <iostream>
 #include <string>
+#include <limits>
+#include <stdexcept>
 #include <unistd.h>
 
 enum class Mode
@@ -74,7 +76,25 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	number = std::stoull(argv[optind], nullptr);
+	try
+	{
+		number = std::stoull(argv[optind], nullptr);
+	}
+	catch (const std::out_of_range &err)
+	{
+		std::cerr << "Argument value is out of range. Expected an integer between "
+				  << std::numeric_limits<decltype(number)>::min()
+				  << " and "
+				  << std::numeric_limits<decltype(number)>::max() << "\n";
+		printHelp();
+		return EXIT_FAILURE;
+	}
+	catch (const std::invalid_argument &err)
+	{
+		std::cerr << "Argument is not an integer\n";
+		printHelp();
+		return EXIT_FAILURE;
+	}
 
 	PrimeNumberGenerator cocoa(number);
 
@@ -88,9 +108,9 @@ int main(int argc, char *argv[])
 		break;
 	case Mode::GeneratePrimes:
 	default:
-    	std::out << "Prime numbers:\n";
+		std::cout << "Prime numbers:\n";
 		cocoa.segmentedSieve();
-    	std::out << std::endl;
+		std::cout << std::endl;
 		break;
 	}
 
