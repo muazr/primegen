@@ -20,20 +20,20 @@ make
 
 To generate prime numbers up to NUM:
 ```
-prime-number-generator NUM
+primegen NUM
 ```
 
 To test whether NUM is a prime number:
 ```
-prime-number-generator -t NUM
+primegen -t NUM
 ```
 
 To find the next prime number after NUM:
 ```
-prime-number-generator -n NUM
+primegen -n NUM
 ```
 
 To view help message:
 ```
-prime-number-generator -h
+primegen -h
 ```
