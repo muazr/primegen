@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-PrimeNumberGenerator::PrimeNumberGenerator(uint_fast64_t limit) : upperLimit(limit)
+PrimeNumberGenerator::PrimeNumberGenerator(uint_fast64_t limit, std::ostream &output) : upperLimit(limit), out(output)
 {
     segmentSize = sqrt(upperLimit);
 }
@@ -18,7 +18,7 @@ void PrimeNumberGenerator::simpleSieve()
     {
         if (isPrime1stSegment[p])
         {
-            std::cout << p << " ";
+            out << p << " ";
 
             for (uint_fast64_t multiple = p * p; multiple <= segmentSize; multiple += p)
             {
@@ -32,8 +32,6 @@ void PrimeNumberGenerator::segmentedSieve()
 {
     uint_fast64_t low = 0;
     uint_fast64_t high = segmentSize;
-
-    std::cout << "Prime numbers:\n";
 
     simpleSieve();
 
@@ -56,8 +54,6 @@ void PrimeNumberGenerator::segmentedSieve()
 
         print(isPrimeCurrentSegment, low);
     }
-
-    std::cout << std::endl;
 }
 
 void PrimeNumberGenerator::print(const std::vector<bool> &isPrime, uint_fast64_t offset)
@@ -65,7 +61,7 @@ void PrimeNumberGenerator::print(const std::vector<bool> &isPrime, uint_fast64_t
     for (std::size_t i = 0; i < isPrime.size(); ++i)
     {
         if (isPrime[i])
-            std::cout << i + offset << " ";
+            out << i + offset << " ";
     }
 }
 

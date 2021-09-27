@@ -88,7 +88,9 @@ int main(int argc, char *argv[])
 		break;
 	case Mode::GeneratePrimes:
 	default:
+    	std::out << "Prime numbers:\n";
 		cocoa.segmentedSieve();
+    	std::out << std::endl;
 		break;
 	}
 
