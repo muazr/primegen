@@ -1,4 +1,4 @@
-# prime-number-generator
+# primegen
 
 Prime number generator using the segmented sieve of Eratosthenes algorithm, implemented in C++11
 
@@ -9,17 +9,31 @@ Dependencies:
 
 Clone this repo:
 ```
-git clone https://github.com/muazr/prime-number-generator.git
+git clone https://github.com/muazr/primegen.git
 ```
 
 Change directory and compile the executable:
 ```
-cd prime-number-generator
+cd primegen
 make
 ```
 
-To run, simply execute the compiled binary:
+To generate prime numbers up to NUM:
 ```
-./prime-number-generator N
+prime-number-generator NUM
 ```
-where N is the upper limit integer of the prime numbers you wish to generate.
+
+To test whether NUM is a prime number:
+```
+prime-number-generator -t NUM
+```
+
+To find the next prime number after NUM:
+```
+prime-number-generator -n NUM
+```
+
+To view help message:
+```
+prime-number-generator -h
+```
